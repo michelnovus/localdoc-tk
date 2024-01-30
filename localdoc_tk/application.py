@@ -23,9 +23,25 @@ class StatusBar(ctk.CTkFrame):
         version_label.grid(row=0, column=2, padx=15, sticky="e")
 
 
-class PackageStack(ctk.CTkFrame):
+class ToolBar(ctk.CTkFrame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+
+class PackageStack(ctk.CTkScrollableFrame):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.grid_columnconfigure(0, weight=1)
+        self.stack: list[Package] = []
+
+
+class Package(ctk.CTkFrame):
+    def __init__(self, position: int, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.configure(corner_radius=20)
+        self.configure(height=45)
+
+        self.position = position
 
 
 class Application(ctk.CTk):
@@ -34,12 +50,17 @@ class Application(ctk.CTk):
         self.title("Localdoc")
         self.bind("<Control-q>", lambda event: self.destroy())
 
+        self.toolbar = ToolBar(
+            master=self,
+            corner_radius=0,
+            height=50,
+            fg_color="#131313",
+        )
+
         self.package_stack = PackageStack(
             master=self,
             corner_radius=15,
             fg_color="#191919",
-            border_width=2,
-            border_color="#a0a0a0",
         )
 
         self.status_bar = StatusBar(
@@ -52,6 +73,7 @@ class Application(ctk.CTk):
 
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(1, weight=1)
+        self.toolbar.grid(row=0, column=1, padx=0, pady=0, sticky="ew")
         self.package_stack.grid(
             row=1, column=1, padx=12, pady=12, sticky="nsew"
         )
