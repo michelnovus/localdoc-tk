@@ -6,6 +6,8 @@ import customtkinter as ctk
 class Application(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.title("Localdoc")
+        self.bind("<Control-q>", lambda event: self.destroy())
 
 
 def main():
