@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "localdoc-tk"
+version = "0.1.0"
+description = ""
+authors = ["Michel Novus <michelnovus@gmail.com>"]
+license = "MIT License"
+readme = "README.md"
+packages = [{ include = "localdoc_tk" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+customtkinter = "^5.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
