@@ -42,7 +42,6 @@ class Package(ctk.CTkFrame):
             hover=False,
             border_width=0,
         )
-        self._state = False
         self.serve_button = ctk.CTkButton(
             master=self,
             text="",
