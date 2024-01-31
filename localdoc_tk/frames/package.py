@@ -5,6 +5,11 @@ from localdoc_tk.assets import Images
 
 
 class Package(ctk.CTkFrame):
+    """It's the representation of the installed documentation packages,
+    providing access to buttons to you to start, stop, launch on navigator,
+    obtain information or delete them.
+    """
+
     def __init__(
         self, images: Images, package_name: str, position: int, *args, **kwargs
     ):
@@ -157,12 +162,17 @@ class Package(ctk.CTkFrame):
             )
 
     def change_position(self, position: int):
+        """Set a new value position of widget in their container, does
+        not change its position."""
         self.position = position
 
     def set_serve_location(self, text: str):
+        """Set a new text on serve location, is the hyperef link
+        of the container."""
         self.served_in.configure(text=text)
 
     def change_state_serve_button(self, state: bool):
+        """Enable or disable the `start/stop` serving button."""
         if state:
             self.serve_button.configure(state="normal")
         else:

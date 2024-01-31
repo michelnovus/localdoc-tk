@@ -1,4 +1,6 @@
 # [MIT License] Copyright (c) 2024 Michel Novus
+"""Builds the logical relationships of the program in the `Application` class
+and provides the funtion `main` access point."""
 
 import os
 import os.path
