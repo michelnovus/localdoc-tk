@@ -19,7 +19,22 @@ class Package(ctk.CTkFrame):
             },
             "serve_button_served": {
                 "fg_color": "#6e0000",
-                "hover_color": "#550000",
+                "hover_color": "#940000",
+                "border_color": "#cccccc",
+            },
+            "info_button": {
+                "fg_color": "transparent",
+                "hover_color": "#005dd6",
+                "border_color": "#cccccc",
+            },
+            "edit_button": {
+                "fg_color": "transparent",
+                "hover_color": "#bb3006",
+                "border_color": "#cccccc",
+            },
+            "delete_button": {
+                "fg_color": "transparent",
+                "hover_color": "#940000",
                 "border_color": "#cccccc",
             },
         }
@@ -52,17 +67,60 @@ class Package(ctk.CTkFrame):
             compound="top",
             fg_color=self.colors["serve_button_not_served"]["fg_color"],
             hover_color=self.colors["serve_button_not_served"]["hover_color"],
+            width=70,
+            border_spacing=4,
+        )
+        self.info_button = ctk.CTkButton(
+            master=self,
+            text="",
+            corner_radius=5,
+            border_width=1,
+            border_color=self.colors["info_button"]["border_color"],
+            image=self.images.get("help-filled.svg", (26, 26)),
+            compound="top",
+            fg_color=self.colors["info_button"]["fg_color"],
+            hover_color=self.colors["info_button"]["hover_color"],
+            width=0,
+            border_spacing=4,
+        )
+        self.edit_button = ctk.CTkButton(
+            master=self,
+            text="",
+            corner_radius=5,
+            border_width=1,
+            border_color=self.colors["edit_button"]["border_color"],
+            image=self.images.get("pen.svg", (26, 26)),
+            compound="top",
+            fg_color=self.colors["edit_button"]["fg_color"],
+            hover_color=self.colors["edit_button"]["hover_color"],
+            width=0,
+            border_spacing=4,
+        )
+        self.delete_button = ctk.CTkButton(
+            master=self,
+            text="",
+            corner_radius=5,
+            border_width=1,
+            border_color=self.colors["delete_button"]["border_color"],
+            image=self.images.get("trash-1.svg", (26, 26)),
+            compound="top",
+            fg_color=self.colors["delete_button"]["fg_color"],
+            hover_color=self.colors["delete_button"]["hover_color"],
             width=0,
             border_spacing=4,
         )
 
-        self.grid_columnconfigure(0, minsize=30)
+        self.grid_columnconfigure(0, minsize=70)
         self.name.grid(row=0, column=1, sticky="e", pady=10)
         self.grid_columnconfigure(2, minsize=5)
         self.served_in.grid(row=0, column=3, padx=0, sticky="e")
         self.grid_columnconfigure(4, weight=1)
         self.serve_button.grid(row=0, column=5, padx=10, pady=5, sticky="nsew")
-        self.grid_columnconfigure(6, weight=1)
+        self.grid_columnconfigure(6, minsize=15)
+        self.info_button.grid(row=0, column=7, padx=10, pady=5, sticky="nsew")
+        self.edit_button.grid(row=0, column=8, padx=10, pady=5, sticky="nsew")
+        self.delete_button.grid(row=0, column=9, padx=10, pady=5, sticky="nsew")
+        self.grid_columnconfigure(10, minsize=70)
 
     def change_state_serve_button(self, state: str):
         """Change color and symbol state of serve_button. The parameter state
