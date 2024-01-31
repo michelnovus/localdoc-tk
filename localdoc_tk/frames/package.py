@@ -18,8 +18,8 @@ class Package(ctk.CTkFrame):
                 "border_color": "#cccccc",
             },
             "serve_button_served": {
-                "fg_color": "#6e0000",
-                "hover_color": "#940000",
+                "fg_color": "#940000",
+                "hover_color": "#6e0000",
                 "border_color": "#cccccc",
             },
             "info_button": {
@@ -45,12 +45,14 @@ class Package(ctk.CTkFrame):
         self.name = ctk.CTkLabel(
             master=self,
             text=package_name,
+            justify="left",
             font=ctk.CTkFont(size=16),
             text_color="#e0e0e0",
         )
         self.served_in = ctk.CTkButton(
             master=self,
-            text="algun lao",
+            text="",
+            anchor="w",
             font=ctk.CTkFont(size=16, underline=True, slant="italic"),
             text_color="#3399ff",
             fg_color="transparent",
@@ -122,7 +124,7 @@ class Package(ctk.CTkFrame):
         self.delete_button.grid(row=0, column=9, padx=10, pady=5, sticky="nsew")
         self.grid_columnconfigure(10, minsize=70)
 
-    def change_state_serve_button(self, state: str):
+    def change_serve_state(self, state: str):
         """Change color and symbol state of serve_button. The parameter state
         should be string: {"SERVED" | "NOT_SERVED"}."""
         if state == "NOT_SERVED":
@@ -153,3 +155,15 @@ class Package(ctk.CTkFrame):
             raise ValueError(
                 'state parameter should be: {"SERVED" | "NOT_SERVED"}'
             )
+
+    def change_position(self, position: int):
+        self.position = position
+
+    def set_serve_location(self, text: str):
+        self.served_in.configure(text=text)
+
+    def change_state_serve_button(self, state: bool):
+        if state:
+            self.serve_button.configure(state="normal")
+        else:
+            self.serve_button.configure(state="disabled")
