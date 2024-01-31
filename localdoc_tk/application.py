@@ -16,6 +16,7 @@ class Application(ctk.CTk):
         self.bind("<Control-q>", lambda event: self.destroy())
 
         self.toolbar = ToolBar(
+            images,
             master=self,
             corner_radius=0,
             height=50,

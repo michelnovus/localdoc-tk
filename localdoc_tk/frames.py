@@ -1,11 +1,43 @@
 # [MIT License] Copyright (c) 2024 Michel Novus
 
 import customtkinter as ctk
+from localdoc_tk.assets import Images
 
 
 class ToolBar(ctk.CTkFrame):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, images: Images, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.button_add = ctk.CTkButton(
+            master=self,
+            text="insertar",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            image=images.get("add-filled.svg", (30, 30)),
+            compound="left",
+            corner_radius=0,
+            fg_color="transparent",
+            hover_color="#404040",
+            border_width=2,
+            border_color="#cccccc",
+            width=130,
+        )
+        self.button_update = ctk.CTkButton(
+            master=self,
+            text="actualizar",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            image=images.get("refresh.svg", (30, 30)),
+            compound="left",
+            corner_radius=0,
+            fg_color="transparent",
+            hover_color="#404040",
+            border_width=2,
+            border_color="#cccccc",
+            width=130,
+        )
+        self.grid_columnconfigure(3, weight=1)
+        self.grid_columnconfigure(0, minsize=10)
+        self.button_add.grid(row=0, column=1, padx=10, pady=6, sticky="ew")
+        self.button_update.grid(row=0, column=2, padx=10, pady=6, sticky="ew")
 
 
 class StatusBar(ctk.CTkFrame):
