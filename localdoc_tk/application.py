@@ -1,52 +1,17 @@
 # [MIT License] Copyright (c) 2024 Michel Novus
 
+import os
+import os.path
 import customtkinter as ctk
-
-APP_VERSION = "0.1.0"
-
-
-class StatusBar(ctk.CTkFrame):
-    def __init__(self, app_version: str, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        version_label = ctk.CTkLabel(
-            master=self,
-            text=f"localdoc-tk v{app_version}",
-            text_color="#e0e0e0",
-            font=ctk.CTkFont(
-                size=14,
-                weight="bold",
-                slant="italic",
-            ),
-        )
-        self.grid_columnconfigure(1, weight=1)
-        version_label.grid(row=0, column=2, padx=15, sticky="e")
-
-
-class ToolBar(ctk.CTkFrame):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
-class PackageStack(ctk.CTkScrollableFrame):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.grid_columnconfigure(0, weight=1)
-        self.stack: list[Package] = []
-
-
-class Package(ctk.CTkFrame):
-    def __init__(self, position: int, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.configure(corner_radius=20)
-        self.configure(height=45)
-
-        self.position = position
+from localdoc_tk.assets import Images
+from localdoc_tk.frames import *
+from localdoc_tk.constants import *
 
 
 class Application(ctk.CTk):
-    def __init__(self, app_version: str, *args, **kwargs):
+    def __init__(self, images: Images, app_version: str, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.images = images
         self.title("Localdoc")
         self.bind("<Control-q>", lambda event: self.destroy())
 
@@ -81,8 +46,14 @@ class Application(ctk.CTk):
 
 
 def main():
+    images = Images()
+    with os.scandir(IMAGES_DIR) as dir_iter:
+        for entry in dir_iter:
+            if entry.is_file() and entry.name.endswith(".svg"):
+                images.load(entry.path)
+
     ctk.set_appearance_mode("dark")
     ctk.set_default_color_theme("green")
 
-    app = Application(APP_VERSION)
+    app = Application(images, APP_VERSION)
     app.mainloop()

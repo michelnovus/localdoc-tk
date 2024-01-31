@@ -10,6 +10,7 @@ packages = [{ include = "localdoc_tk" }]
 [tool.poetry.dependencies]
 python = "^3.11"
 customtkinter = "^5.2.2"
+cairosvg = "^2.7.1"
 
 
 [build-system]
